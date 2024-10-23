@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Doctor {
+  id                 Int                  @id @default(autoincrement())
+  name               String
+  lastName           String
+  email              String               @unique
+  password           String
+  specialty          Specialty?           @relation(fields: [specialtyId], references: [id])
+  specialtyId        Int?
+  appointment        MedicalAppointment[]
+  center             MedicalCenter?       @relation(fields: [centerId], references: [id])
+  centerId           Int?
+  DoctorAvailability DoctorAvailability?
+}
+
+model Patient {
+  id           Int                  @id @default(autoincrement())
+  rut          String               @unique
+  name         String
+  lastName     String
+  prevision    Prevision?           @relation(fields: [previsionId], references: [id])
+  previsionId  Int?
+  appointment  MedicalAppointment[]
+  availability DoctorAvailability[]
+}
+
+model Prevision {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  patients Patient[]
+}
+
+model MedicalAppointment {
+  id                Int           @id @default(autoincrement())
+  numberAppointment Int           @unique
+  dateAndTime       DateTime
+  status            String        @default("pending")
+  medicalCenter     MedicalCenter @relation(fields: [medicalCenterId], references: [id])
+  medicalCenterId   Int
+  specialty         Specialty     @relation(fields: [specialtyId], references: [id])
+  specialtyId       Int
+  doctor            Doctor        @relation(fields: [doctorId], references: [id])
+  doctorId          Int
+  patient           Patient       @relation(fields: [patientRut], references: [rut])
+  patientRut        String
+}
+
+model MedicalCenter {
+  id         Int                  @id @default(autoincrement())
+  commune    String
+  doctor     Doctor[]             @relation
+  CitaMedica MedicalAppointment[]
+}
+
+model Specialty {
+  id          Int                  @id @default(autoincrement())
+  name        String
+  doctores    Doctor[]
+  appointment MedicalAppointment[]
+}
+
+model DoctorAvailability {
+  id            Int      @id @default(autoincrement())
+  startDateTime String
+  endDateTime   String
+  days          String[]
+  isAvailable   Boolean  @default(true)
+  doctor        Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId      Int      @unique
+  Patient       Patient? @relation(fields: [patientId], references: [id])
+  patientId     Int?
+}
