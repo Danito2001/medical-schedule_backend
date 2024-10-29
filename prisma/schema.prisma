@@ -29,7 +29,6 @@ model Patient {
   prevision    Prevision?           @relation(fields: [previsionId], references: [id])
   previsionId  Int?
   appointment  MedicalAppointment[]
-  availability DoctorAvailability[]
 }
 
 model Prevision {
@@ -75,6 +74,4 @@ model DoctorAvailability {
   isAvailable   Boolean  @default(true)
   doctor        Doctor   @relation(fields: [doctorId], references: [id])
   doctorId      Int      @unique
-  Patient       Patient? @relation(fields: [patientId], references: [id])
-  patientId     Int?
 }
