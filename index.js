@@ -7,7 +7,7 @@ const port = 3001;
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: 'https://dani-medicalschedule.netlify.app/',
+    origin: 'https://dani-medicalschedule.netlify.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
