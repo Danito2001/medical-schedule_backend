@@ -32,7 +32,7 @@ await prisma.specialty.createMany({
 });
 
 await prisma.prevision.createMany({
-    data: previsions.map(p => ({ id: p.id, name: p.name })),
+    data: previsions.map(p => ({ id: p.id, name: p.value })),
     skipDuplicates: true,
 });
 
