@@ -4,17 +4,17 @@ const prisma = new PrismaClient();
 async function main() {
 
 const specialties = [
-    { id: "cardiology", valor: "Cardiología" },
-    { id: "dermatology", valor: "Dermatología" },
-    { id: "neurology", valor: "Neurología" },
-    { id: "pediatrics", valor: "Pediatría" },
-    { id: "psychiatry", valor: "Psiquiatría" },
-    { id: "orthopedics", valor: "Ortopedia" },
+    { id: 1, name: "cardiology" },
+    { id: 2, name: "dermatology" },
+    { id: 3, name: "neurology" },
+    { id: 4, name: "pediatrics" },
+    { id: 5, name: "psychiatry" },
+    { id: 6, name: "orthopedics" }
 ];
 
 const previsions = [
-    { id: 'fonasa', value: 'FONASA' },
-    { id: 'isapre', value: 'ISAPRE' }
+    { id: 1, value: 'fonasa' },
+    { id: 2, value: 'isapre' }
 ];
 
 const medicalCenters = [
@@ -27,12 +27,12 @@ const medicalCenters = [
 ];
 
 await prisma.specialty.createMany({
-    data: specialties.map(s => ({ id: s.id, name: s.valor })),
+    data: specialties.map(s => ({ id: s.id, name: s.name })),
     skipDuplicates: true,
 });
 
 await prisma.prevision.createMany({
-    data: previsions.map(p => ({ id: p.id, name: p.value })),
+    data: previsions.map(p => ({ id: p.id, name: p.name })),
     skipDuplicates: true,
 });
 
