@@ -19,7 +19,6 @@ exports.login = async (req, res) => {
                         patient: true
                     }
                 },
-                DoctorAvailability: true
             }
         });
 
@@ -33,11 +32,11 @@ exports.login = async (req, res) => {
             return res.status(401).json({ error: "Invalid email or password" });
         }
 
-        const doctorAvailability = user?.DoctorAvailability || []; 
+        const doctorAvailability = user?.doctorAvailability || []; 
 
         const { password: userPassword, ...userWithoutPassword } = user || {};
 
-        const userData = { ...userWithoutPassword, DoctorAvailability: doctorAvailability };
+        const userData = { ...userWithoutPassword, doctorAvailability: doctorAvailability };
 
         const token = generateToken(userWithoutPassword);
 
