@@ -28,19 +28,20 @@ async function main() {
   	];
 
 	const patients = [
-		{ id: 1, rut: '12.345.678-9', name: 'Juan', lastName: 'Pérez', previsionId: 1 },
-		{ id: 2, rut: '11.223.344-5', name: 'María', lastName: 'González', previsionId: 2 },
-		{ id: 3, rut: '22.334.556-7', name: 'Carlos', lastName: 'Martínez', previsionId: 1 },
-		{ id: 4, rut: '33.445.667-8', name: 'Ana', lastName: 'Hernández', previsionId: 2 },
-		{ id: 5, rut: '44.556.778-9', name: 'Pedro', lastName: 'Soto', previsionId: 1 },
-		{ id: 6, rut: '55.667.889-0', name: 'Luisa', lastName: 'Ramírez', previsionId: 2 },
-		{ id: 7, rut: '66.778.990-1', name: 'Jorge', lastName: 'López', previsionId: 1 },
-		{ id: 8, rut: '77.889.001-2', name: 'Claudia', lastName: 'Mendoza', previsionId: 2 },
+		{ id: 1, rut: '11.111.111-1', name: 'Juan', lastName: 'Pérez', previsionId: 1 },
+		{ id: 2, rut: '22.222.222-2', name: 'María', lastName: 'González', previsionId: 2 },
+		{ id: 3, rut: '33.333.333-3', name: 'Carlos', lastName: 'Martínez', previsionId: 1 },
+		{ id: 4, rut: '44.444.444-4', name: 'Ana', lastName: 'Hernández', previsionId: 2 },
+		{ id: 5, rut: '55.555.555-5', name: 'Pedro', lastName: 'Soto', previsionId: 1 },
+		{ id: 6, rut: '66.666.666-6', name: 'Luisa', lastName: 'Ramírez', previsionId: 2 },
+		{ id: 7, rut: '77.777.777-7', name: 'Jorge', lastName: 'López', previsionId: 1 },
+		{ id: 8, rut: '88.888.888-8', name: 'Claudia', lastName: 'Mendoza', previsionId: 2 },
+		{ id: 9, rut: '99.999.999-9', name: 'Manuel', lastName: 'Perez', previsionId: 2 },
 	];
 
 	const hashedDoctors = await Promise.all(doctors.map(async (doctor) => {
-        const hashedPassword = await bcrypt.hash(doctor.password, 10); 
-        return { ...doctor, password: hashedPassword }; 
+        const hashedPassword = await bcrypt.hash(doctor.password, 10); // Encriptar la contraseña
+        return { ...doctor, password: hashedPassword }; // Reemplazar la contraseña por la encriptada
     }));
 	
 	await prisma.patient.createMany({
