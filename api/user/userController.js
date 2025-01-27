@@ -14,9 +14,10 @@ exports.login = async (req, res) => {
         const user = await prisma.doctor.findUnique({
             where: { email },
             include: {
+                doctorAvailability: true,
                 appointment: {
                     include: {
-                        patient: true
+                        patient: true,
                     }
                 },
             }
@@ -32,7 +33,7 @@ exports.login = async (req, res) => {
             return res.status(401).json({ error: "Invalid email or password" });
         }
 
-        const doctorAvailability = user?.doctorAvailability || []; 
+        const doctorAvailability = user.doctorAvailability || []; 
 
         const { password: userPassword, ...userWithoutPassword } = user || {};
 
