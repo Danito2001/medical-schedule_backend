@@ -23,16 +23,13 @@ exports.getFilteredDoctors = async(req, res) => {
             return res.status(400).json({ error: `${day} It's not a valid day`});
         }
 
-        console.log({centro: centerIdParsed})
-        console.log({specialty: specialtyIdParsed})
-
 
         if (specialtyIdParsed && centerIdParsed && day) {
             doctors = await prisma.doctor.findMany({
                 where: {
                     specialtyId: specialtyIdParsed,
                     centerId: centerIdParsed,
-                    DoctorAvailability: {
+                    doctorAvailability: {
                         days: {
                             has: day 
                         }
@@ -46,7 +43,7 @@ exports.getFilteredDoctors = async(req, res) => {
                     specialty: true,
                     centerId: true,
                     specialtyId: true,
-                    DoctorAvailability: {
+                    doctorAvailability: {
                         select: {
                             id: true,
                             startDateTime: true,
